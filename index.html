@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <button onclick="onDisconnectClick()">disconnect</button>
+    <div></div>
+<script>
+    // https://ko.javascript.info/server-sent-events
+    const eventSource = new EventSource('http://localhost:3000/sse', {withCredentials: false});
+
+    eventSource.addEventListener('message', e => {
+        document.querySelector("div").innerHTML = e.data;
+    });
+
+    eventSource.addEventListener('open', e => {
+        console.log('Connection is open.');
+    });
+
+    const onDisconnectClick = () => {
+        eventSource.close();
+    }
+</script>
+</body>
+</html>
